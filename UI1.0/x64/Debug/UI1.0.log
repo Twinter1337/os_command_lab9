@@ -1,0 +1,4 @@
+﻿  MyForm.cpp
+E:\Labs_and_pract\OS\OS_lab9\UI1.0\UI1.0\Source.h(20): warning C4715: 'HTTP_Client::Receive_messages': not all control paths return a value
+  MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  UI1.0.vcxproj -> E:\Labs_and_pract\OS\OS_lab9\UI1.0\x64\Debug\UI1.0.exe

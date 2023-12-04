@@ -1,0 +1,3 @@
+E:\Labs_and_pract\OS\OS_lab9\UI1.0\UI1.0\x64\Debug\UI1.0.vcxproj.AssemblyReference.cache
+E:\Labs_and_pract\OS\OS_lab9\UI1.0\UI1.0\x64\Debug\UI10.MyForm.resources
+E:\Labs_and_pract\OS\OS_lab9\UI1.0\UI1.0\x64\Debug\UI1.0.vcxproj.GenerateResource.cache
