@@ -10,25 +10,6 @@ private:
 
 public:
 
-	void Send_message_to_other_client(const std::pair<std::string, std::string> sender_info) {
-		for (const auto& client : clients) {
-			const std::string& client_address = client.first;
-
-			if (client_address != sender_info.first) {
-				int client_port = 8080;
-
-				httplib::Client client(client_address.c_str(), client_port);
-
-				auto res = client.Post("/get_messages", sender_info.second, "text/plain");
-
-				if (!res || res->status != 200) {
-					std::cerr << "Error sending messages to client at address: " << client_address << std::endl;
-				}
-			}
-		}
-	}
-
-
 	//------------------------------------------------------------------------------------------
 
 	std::pair<std::string, std::string> Receive_messge_from_client(const httplib::Request& req, httplib::Response& res) {
@@ -51,8 +32,6 @@ public:
 	
 	void Manage_message_from_client(const httplib::Request& req, httplib::Response& res) {
 		std::pair<std::string, std::string> sender_info = Receive_messge_from_client(req, res);
-
-		Send_message_to_other_client(sender_info);
 	}
 
 	//------------------------------------------------------------------------------------------
