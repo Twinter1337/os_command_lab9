@@ -1,8 +1,9 @@
-#include "C:\Users\$DPH400-H44T15729HUK\Downloads\httplib.h"
+#include "E:\httplib\httplib.h"
 #include <iostream>
 
 class HTTP_server {
 private:
+
 	std::vector<std::string> messages_log; // тут і так все ясно
 	std::map<std::string, int> clients; //зберігає адресу і порт клієнтів
 	httplib::Server server;
@@ -12,7 +13,7 @@ public:
 
 	//------------------------------------------------------------------------------------------
 
-	std::pair<std::string, std::string> Receive_messge_from_client(const httplib::Request& req, httplib::Response& res) {
+	void Receive_messge_from_client(const httplib::Request& req, httplib::Response& res) {
 		std::string client_id = req.remote_addr;
 		std::string message_from_client = req.body;
 
@@ -20,40 +21,28 @@ public:
 
 		messages_log.push_back(client_id + " : " + message_from_client);
 
-		//test
 		std::cout << messages_log.back() << std::endl;
-		//test
-
+	
 		res.set_content("Message recived by server", "text/plain");
-		return std::pair<std::string, std::string>(client_id, message_from_client);
-	}
+		}
 
 	//------------------------------------------------------------------------------------------
 	
-	void Manage_message_from_client(const httplib::Request& req, httplib::Response& res) {
-		std::pair<std::string, std::string> sender_info = Receive_messge_from_client(req, res);
-	}
-
-	//------------------------------------------------------------------------------------------
-
 	void Handle_get_messages(const httplib::Request& req, httplib::Response& res) {
 		std::string response_body;
 
-		if (!messages_log.empty() && messages_log_size < messages_log.size()) {
-			response_body = messages_log.back();
-			res.set_content(response_body, "text/plain");
-			messages_log_size++;
+		for (auto msg : messages_log) {
+			response_body += msg;
 		}
-		else {
-			return;
-		}
+
+		res.set_content(response_body, "text/plain");
 	}
 
 	//------------------------------------------------------------------------------------------
 
 	void Start_server() {
 		server.Post("/receive", [&](const httplib::Request& req, httplib::Response& res) {
-			Manage_message_from_client(req, res);
+			Receive_messge_from_client(req, res);
 			});
 
 		server.Get("/get_messages", [&](const httplib::Request& req, httplib::Response& res) {
