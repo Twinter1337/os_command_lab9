@@ -39,10 +39,8 @@ namespace UI10 {
 			}
 		}
 	private: System::Windows::Forms::Button^ button1;
-	protected:
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::TextBox^ textBox2;
-
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -63,11 +61,11 @@ namespace UI10 {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(12, 407);
+			this->button1->Location = System::Drawing::Point(12, 391);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(357, 68);
+			this->button1->Size = System::Drawing::Size(367, 47);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"Send";
+			this->button1->Text = L"button1";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
@@ -78,41 +76,39 @@ namespace UI10 {
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ReadOnly = true;
-			this->textBox1->Size = System::Drawing::Size(357, 338);
+			this->textBox1->Size = System::Drawing::Size(367, 322);
 			this->textBox1->TabIndex = 1;
 			// 
 			// textBox2
 			// 
-			this->textBox2->Location = System::Drawing::Point(12, 356);
+			this->textBox2->Location = System::Drawing::Point(12, 340);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(357, 45);
+			this->textBox2->Size = System::Drawing::Size(367, 45);
 			this->textBox2->TabIndex = 2;
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(381, 487);
+			this->ClientSize = System::Drawing::Size(391, 450);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button1);
 			this->Name = L"MyForm";
-			this->Text = L"HTTP CHAT";
 			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::MyForm_Paint);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
+
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		std::string user_message = msclr::interop::marshal_as<std::string>(textBox2->Text + "\r\n"); // ne pytaites` ya ne ibu sho tse ale vono castyt` vse sho tiky mozhna
-		my_client.Send_message(user_message);
+		my_client.Send_message(user_message,"192.168.31.49");
 		textBox2->Text = "";
 	}
 
 	private: System::Void MyForm_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-		textBox1->Text = msclr::interop::marshal_as<String^>(my_client.Receive_messages());
+		textBox1->Text = msclr::interop::marshal_as<String^>(my_client.Receive_messages("192.168.31.49"));
 	}
 	};
 }

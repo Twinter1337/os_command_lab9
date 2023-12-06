@@ -1,4 +1,5 @@
 #include "MyForm.h"
+#include <msclr/marshal_cppstd.h>
 
 using namespace System;
 using namespace System::Windows::Forms;

@@ -4,14 +4,14 @@
 
 class HTTP_Client {
 public:
-	void Send_message(const std::string& message) {
-		httplib::Client client("http://192.168.31.49:8080"); // çì³íè ip òóò 
+	void Send_message(const std::string& message, const std::string server_ip) {
+		httplib::Client client("http://" + server_ip + ":8080"); // çì³íè ip òóò 
 
 		auto res = client.Post("/receive", message, "text/plain");
 	}
 
-	std::string Receive_messages() {
-		httplib::Client client("http://192.168.31.49:8080"); // çì³íè ip òóò 
+	std::string Receive_messages(const std::string server_ip) {
+		httplib::Client client("http://" + server_ip + ":8080"); // çì³íè ip òóò 
 
 		auto res = client.Get("/get_messages");
 		if (res && res->status == 200) {
