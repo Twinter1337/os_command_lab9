@@ -68,7 +68,13 @@ namespace lab9
 
     void SendMessage(const std::string& msg) override
     {
-      send(connection, msg.c_str(), msg.size(), NULL);
+        sockaddr_in localAddress;
+        int localAddressLength = sizeof(localAddress);
+        if (getsockname(connection, (sockaddr*)&localAddress, &localAddressLength) == 0) {
+            char clientIp[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &localAddress.sin_addr, clientIp, INET_ADDRSTRLEN);
+            send(connection, (std::string(clientIp) + ": " + std::string(msg)).c_str(), sizeof(msg), NULL);
+        }
     }
 
   private:
